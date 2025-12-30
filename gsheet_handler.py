@@ -192,7 +192,7 @@ def get_gspread_client():
     try:
         # Ambil kredensial dari Streamlit secrets
         creds_dict = {
-            "type": st.secrets["connections"]["gsheets"]["tipe"],
+            "type": st.secrets["connections"]["gsheets"]["type"],
             "project_id": st.secrets["connections"]["gsheets"]["project_id"],
             "private_key_id": st.secrets["connections"]["gsheets"]["private_key_id"],
             "private_key": st.secrets["connections"]["gsheets"]["private_key"],
