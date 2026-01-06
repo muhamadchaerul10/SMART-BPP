@@ -138,7 +138,7 @@ def parse_numeric(val_str):
     import re
 
     # ===============================
-    # 1️⃣ Validasi karakter
+    #1️⃣ Validasi karakter
     # ===============================
     if re.search(r"[^\d.,\-]", s):
         illegal = re.findall(r"[^\d.,\-]", s)
@@ -1541,10 +1541,11 @@ with st.sidebar:
         margin-bottom: 10px;
     ">
         <div style="font-size:14px; color:#059669; font-weight:600; margin-bottom: 8px;">
-            📊 Input Penjualan (Multi-Divisi)
+            📊 Input Pendapatan (Multi-Divisi)
         </div>
         <div style="font-size: 12px; color: inherit;">
-            Nilai Penjualan dihitung dari Komponen A + B + C + D yang diinput oleh masing-masing divisi.
+            Nilai Pendapatan dihitung dari Komponen A + B + C + D yang diinput oleh masing-masing divisi.<br>
+            Nilai Penjualan didapatkan dari nilai KWh Produksi Export (penyusun komponen D).
         </div>
     </div>
     """,
@@ -1584,7 +1585,7 @@ with st.sidebar:
                 )
             elif penjualan_data["source"] == "none":
                 st.markdown(
-                    '<div class="full-width-alert alert-warning" style="background-color: #e0f2fe; color: #0369a1; border-color: #bae6fd;">ℹ️ Belum ada input dari divisi. Total Penjualan 0.</div>',
+                    '<div class="full-width-alert alert-warning" style="background-color: #e0f2fe; color: #0369a1; border-color: #bae6fd;">ℹ️ Belum ada input dari divisi. Total Pendapatan 0.</div>',
                     unsafe_allow_html=True,
                 )
             else:
@@ -1638,7 +1639,7 @@ with st.sidebar:
                     text-align: center;
                 ">
                     <div style="font-size: 14px; color: inherit; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
-                        Total Penjualan (kWh)
+                        Total Pendapatan (Rp)
                     </div>
                     <div style="font-size: 20px; color: #059669; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2;">
                         {total_penjualan:,.0f}
@@ -1706,9 +1707,16 @@ with st.sidebar:
 
                 # Bersihkan alert agar tidak muncul terus menerus
                 st.session_state.app_alert = None
-
+            
+            # Ambil nilai saat ini dari Google Sheets
+            try:
+                current = get_current_period_row()
+                current_value_kwh_export = int(current.get("kwh_export", 0))
+            except:
+                current_value_kwh_export = 0
+            
             # Gunakan nilai dari Google Sheets untuk model
-            b_penjualan = total_penjualan
+            b_penjualan = current_value_kwh_export
 
         except Exception as e:
             st.error(f"Gagal terhubung ke Google Sheets: {str(e)}")
