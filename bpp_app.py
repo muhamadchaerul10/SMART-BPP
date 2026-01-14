@@ -1237,7 +1237,7 @@ def modal_reset_data():
 
 # ============ PERSISTENSI TEMA ============
 # Data Loading
-link_file_tampilan = "https://docs.google.com/spreadsheets/d/16hZccWcjepE-Ac9Qd-9kBpJiJ8zhu2ON/export?format=csv"
+link_file_tampilan = "https://docs.google.com/spreadsheets/d/1QOgMuFD-FmmXpi1pHlo0nA6mlKUnpWFd/edit?usp=sharing&ouid=106015459563229381798&rtpof=true&sd=true"
 link_file = "https://docs.google.com/spreadsheets/d/16hZccWcjepE-Ac9Qd-9kBpJiJ8zhu2ON/export?format=xlsx"
 df_tampilan = pd.read_csv(link_file_tampilan)
 df = pd.read_excel(link_file)
